@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Navbar.cshtml";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <h1>CHào mừng bạn đã đến với website bấm tiếp tục để đến với trang chủ<a href="/Home">Trang Chủ</a> </h1>
+        <h2>Bấm đăng xuất nếu bạn muốn <a href="/Account/Logout">Đăng xuất</a> </h2>
+    </div>
+    
+}
+else
+{
+    <div class="container">
+        <h1> <a href="/Account/Login">Vui lòng đăng nhập để truy cập</a></h1>
+    </div>
+}
+

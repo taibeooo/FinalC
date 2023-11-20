@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Report.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .center-content {
+            text-align: center;
+            font-weight: bold;
+            color: #0070C0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center-content">
+        <h2>Quản lí phân loại</h2>
+    </div>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Tạo bài</a>
+    </p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Phân Loại</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-success">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

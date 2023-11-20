@@ -1,0 +1,94 @@
+﻿@model Report.Models.Rent_Buy
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h2 class="text-center">Xoá bài</h2>
+
+    <div>
+        <hr />
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Tên bài</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyName)</td>
+                </tr>
+                <tr>
+                    <th>Thông tin mô tả</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyDescription)</td>
+                </tr>
+                <tr>
+                    <th>Tỉnh/Thành Phố	</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyProvince)</td>
+                </tr>
+                <tr>
+                    <th>Giá</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyPrice)</td>
+                </tr>
+                <tr>
+                    <th>Diện tích	</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyArea)</td>
+                </tr>
+                <tr>
+                    <th>Số điện thoại	</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyPhone)</td>
+                </tr>
+                <tr>
+                    <th>Ảnh mô tả	</th>
+                    <td>
+                        @Html.DisplayFor(model => model.RentBuyImage)<br>
+                        @Html.DisplayFor(model => model.RentBuyImage1) <br>
+                        @Html.DisplayFor(model => model.RentBuyImage2)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Trạng thái	</th>
+                    <td>@Html.DisplayFor(model => model.RentBuyStatus)</td>
+                </tr>
+                <tr>
+                    <th>Phân loại	</th>
+                    <td>@Html.DisplayFor(model => model.Category.CategoryName)</td>
+                </tr>
+                <tr>
+                    <th>Người đăng</th>
+                    <td>@Html.DisplayFor(model => model.UserId)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="RentBuyId" />
+            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirmDelete();" />
+            <a asp-action="Index" class="btn btn-success">Back</a>
+            <script>
+                function confirmDelete() {
+                    if (confirm("Are you sure you want to delete this item?")) {
+                        document.getElementById("deleteForm").submit();
+                    }
+                    return false;
+                }
+            </script>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this item?")) {
+            document.getElementById("deleteForm").submit();
+        }
+        return false;
+    }
+</script>

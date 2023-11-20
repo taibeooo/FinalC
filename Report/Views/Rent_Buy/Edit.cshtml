@@ -1,0 +1,95 @@
+﻿@model Report.Models.Rent_Buy
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h2 class="text-center">Chỉnh sửa</h2>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="RentBuyId" />
+                <div class="form-group">
+                    <label asp-for="RentBuyName" class="control-label">Tên bài</label>
+                    <input asp-for="RentBuyName" class="form-control" />
+                    <span asp-validation-for="RentBuyName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Thông tin mô tả</label>
+                    <textarea asp-for="RentBuyDescription" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="RentBuyDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentBuyProvince" class="control-label">Tỉnh/Thành Phố	</label>
+                    <input asp-for="RentBuyProvince" class="form-control" />
+                    <span asp-validation-for="RentBuyProvince" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentBuyPrice" class="control-label">Giá</label>
+                    <input asp-for="RentBuyPrice" class="form-control" />
+                    <span asp-validation-for="RentBuyPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentBuyArea" class="control-label">Diện tích	</label>
+                    <input asp-for="RentBuyArea" class="form-control" />
+                    <span asp-validation-for="RentBuyArea" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentBuyPhone" class="control-label">Số điện thoại	</label>
+                    <input asp-for="RentBuyPhone" class="form-control" />
+                    <span asp-validation-for="RentBuyPhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ảnh mô tả		</label>
+                    <input asp-for="RentBuyImage" type="file" class="form-control" />
+                    <span asp-validation-for="RentBuyImage" class="text-danger"></span>
+                    <input asp-for="RentBuyImage1" type="file" class="form-control" />
+                    <span asp-validation-for="RentBuyImage1" class="text-danger"></span>
+                    <input asp-for="RentBuyImage2" type="file" class="form-control" />
+                    <span asp-validation-for="RentBuyImage2" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentBuyStatus" class="control-label">Trạng thái	</label>
+                    <input asp-for="RentBuyStatus" class="form-control" />
+                    <span asp-validation-for="RentBuyStatus" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label">Phân loại	</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label">Người đăng</label>
+                    <input asp-for="UserId" class="form-control" value="@User.Identity.Name" readonly />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" onclick="showSaveAlert()" />
+                    <a asp-action="Index" class="btn btn-success">Back</a>
+                </div>
+
+                <script>
+                    function showSaveAlert() {
+                        alert("Saved successfully!");
+                    }
+                </script>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

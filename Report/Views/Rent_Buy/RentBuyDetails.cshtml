@@ -1,0 +1,181 @@
+﻿@model Report.Models.Rent_Buy
+@{
+    ViewData["Title"] = "RentBuyDetails";
+    Layout = "~/Views/Shared/_TempView.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_HomePage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with JoeBLog landing page.">
+    <meta name="author" content="Devcrud">
+    <title>JoeBLog | Free Bootstrap 4.3.x template</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="/vendors/themify-icons/css/themify-icons.css">
+    <!-- Bootstrap + JoeBLog main styles -->
+    <link rel="stylesheet" href="/css/joeblog.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px; /* Điều chỉnh chiều rộng theo nhu cầu */
+            height: 50px; /* Điều chỉnh chiều cao theo nhu cầu */
+            top: 50%; /* Đưa nút về giữa theo chiều cao */
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar custom-navbar navbar-expand-md navbar-light bg-primary sticky-top">
+            <div class="container">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link">BẤT ĐỘNG SẢN TT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rent" asp-action="Search">Thuê</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buy" asp-action="Search">Bán</a>
+                        </li>
+
+                    </ul>
+                    <div class="navbar-nav ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Quản lí</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <!-- Các điều hướng khác cho người dùng đã đăng nhập -->
+                                <!-- Ví dụ: -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="UserDetail" asp-action="Index">Trang cá nhân</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <!-- Điều hướng cho người dùng chưa đăng nhập -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <span class="nav-link text-dark">Chào, @User.Identity.Name!</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </li>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    @{
+        // Split the RentBuyName into words
+        var words = Model.RentBuyName.Split(' ');
+
+        // Take the first 10 words or less
+        var limitedText = string.Join(" ", words.Take(10));
+    }
+    <!-- Here, you can access properties of the single Rent_Buy object using @Model -->
+    <header class="page-header page-header-mini">
+        <h1 class="title text-center">@Model.RentBuyName</h1>
+        <ol class="breadcrumb pb-0">
+            <li class="breadcrumb-item"><a href="/Home">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@limitedText</li>
+        </ol>
+    </header>
+    <div class="card">
+        <section class="container">
+            <div class="page-container">
+                <div class="page-content">
+                    <div class="card">
+                        <div class="card-header pt-0">
+                            <h3 class="card-title mb-4">@Model.RentBuyName</h3>
+                            <div class="col-lg-12">
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+
+                                        @if (!string.IsNullOrEmpty(Model.RentBuyImage))
+                                        {
+                                            <div class="carousel-item active">
+                                                <img src="/imgs/@Model.RentBuyImage" alt="Hình 1" class="d-block w-100 h-50 img-fluid">
+                                            </div>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(Model.RentBuyImage1))
+                                        {
+                                            <div class="carousel-item @(string.IsNullOrEmpty(Model.RentBuyImage) ? "active" : "")">
+                                                <img src="/imgs/@Model.RentBuyImage1" alt="Hình 2" class="d-block w-100 h-50 img-fluid">
+                                            </div>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(Model.RentBuyImage2))
+                                        {
+                                            <div class="carousel-item @(string.IsNullOrEmpty(Model.RentBuyImage) && string.IsNullOrEmpty(Model.RentBuyImage1) ? "active" : "")">
+                                                <img src="/imgs/@Model.RentBuyImage2" alt="Hình 3" class="d-block w-100 h-50 img-fluid">
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Trước</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Tiếp theo</span>
+                                    </a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="card-body border-top">
+                            <p class="my-3">Thông tin mô tả: @Model.RentBuyDescription</p>
+                            <p class="my-3">Diện tích: @Model.RentBuyArea</p>
+                            <p class="my-3">Giá 1 mét vuông: @Model.RentBuyPrice</p>
+                            <p class="my-3">Tỉnh thành: @Model.RentBuyProvince</p>
+                            <p class="my-3">Số điện thoại: @Model.RentBuyPhone</p>
+                        </div>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar -->
+                <div class="page-sidebar">
+                    <h6 class=" ">Khám phá thêm</h6>
+                </div>
+            </div>
+        </section>
+
+        <!-- The rest of your view content for a single Rent_Buy object -->
+    </div>
+
+</body>
+</html>

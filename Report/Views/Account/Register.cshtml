@@ -1,0 +1,110 @@
+﻿@model Report.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Đăng kí</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+        
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+
+</style>
+</head>
+<body>
+    <form asp-action="Register" method="post">
+        <div class="container">
+            <h1>Đăng kí</h1>
+            <hr>
+
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="UserName"><b>User name</b></label>
+                <input asp-for="UserName" class="form-control" required />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserPassword"><b>Password</b></label>
+                <input asp-for="UserPassword" type="password" class="form-control" required />
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserEmail"><b>Email</b></label>
+                <input asp-for="UserEmail" class="form-control" required />
+                <span asp-validation-for="UserEmail" class="text-danger"></span>
+            </div>
+
+            <hr>
+
+            <button type="submit" class="registerbtn">Đăng kí</button>
+        </div>
+    </form>
+
+
+    <div class="container signin">
+        <p>Bạn đã có tài khoản? <a asp-controller="Account" asp-action="Login" style="color:black">Đăng nhập</a>.</p>
+    </div>
+
+
+</body>
+</html>
+

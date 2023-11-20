@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Report.Models.Rent_Buy>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_TempView.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_HomePage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with JoeBLog landing page.">
+    <meta name="author" content="Devcrud">
+    <title>JoeBLog | Free Bootstrap 4.3.x template</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="/vendors/themify-icons/css/themify-icons.css">
+    <!-- Bootstrap + JoeBLog main styles -->
+    <link rel="stylesheet" href="/css/joeblog.css">
+</head>
+<body>
+    <div>
+        <nav class="navbar custom-navbar navbar-expand-md navbar-light bg-primary sticky-top">
+            <div class="container">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link">BẤT ĐỘNG SẢN TT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rent" asp-action="Search">Thuê</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buy" asp-action="Index">Bán</a>
+                        </li>
+
+                    </ul>
+                    <div class="navbar-nav ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Quản lí</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <!-- Các điều hướng khác cho người dùng đã đăng nhập -->
+                                <!-- Ví dụ: -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="UserDetail" asp-action="Index">Trang cá nhân</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <!-- Điều hướng cho người dùng chưa đăng nhập -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <span class="nav-link text-dark">Chào, @User.Identity.Name!</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </li>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <form asp-controller="Buy" asp-action="Search" method="get" style="margin-top:30px" onsubmit="submitForm();">
+            <div class="input-group">
+
+                <input type="text" name="searchString" class="form-control rounded" placeholder="Nhập bài bạn muốn tìm kiếm" aria-label="Search" aria-describedby="search-addon" />
+
+                <div class="form-group" style="margin-left: 10px;margin-right: 10px; height: 38px;">
+                    <select class="form-control" asp-items="ViewBag.Categories" name="categoryId">
+                        <option value="">Phân loại</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-right: 10px; height: 38px;">
+                    <select class="form-control" asp-items="ViewBag.Rentbuy" name="rentbuyprovince">
+                        <option value="">---Chọn tỉnh thành---</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-right: 10px; height: 38px;">
+
+                    <select name="rentbuyprice" class="form-control rounded" aria-label="RentBuyPrice" aria-describedby="rentbuyprice-addon">
+                        <option value="">Chọn giá</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                    </select>
+                </div>
+
+
+                <div class="input-group-append" style="height: 38px;">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+
+
+        <script>
+            function submitForm() {
+                // Manually trigger the form submission when the button is clicked
+                document.forms[0].submit();
+            }
+        </script>
+
+
+
+
+
+
+
+
+        <hr>
+        <div class="page-container">
+            <div class="page-content">
+                @foreach (var item in Model.Reverse())
+                {
+                    @if (item.CategoryId == 2 || item.CategoryId == 4)
+
+                    {
+                        // Truy cập thuộc tính Category và kiểm tra xem nó không null trước khi sử dụng
+                        <div class="row" id="tinhomnay">
+                            <div class="col-lg-6">
+                                <div class="card text-center mb-5">
+                                    <div class="card-header p-0">
+                                        <div class="blog-media">
+                                            <img class="img-fluid" src="/imgs/@item.RentBuyImage" alt="" width="300px" height="200px" object-fit="cover">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <h3 href="~/Rent_Buy/RentBuyDetails?id=@item.RentBuyId">@item.RentBuyName</h3>
+                                <p>
+                                    @if (item.RentBuyDescription.Length > 100)
+                                    {
+                                        @item.RentBuyDescription.Substring(0, 100)
+                                        <span>...</span>
+                                    }
+                                    else
+                                    {
+                                        @item.RentBuyDescription
+                                    }
+                                </p>
+                                <a href="/Rent_Buy/RentBuyDetails?id=@item.RentBuyId" style="color:black">Đọc thêm</a>
+                            </div>
+                        </div>
+                        <br>
+                    }   }
+
+            </div>
+        </div>
+
+    </div>
+</body>
